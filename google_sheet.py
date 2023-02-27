@@ -1,8 +1,6 @@
 import pandas as pd
 import streamlit as st
-import gspread
 
-from oauth2client.service_account import ServiceAccountCredentials
 
 # Read in data from the Google Sheet.
 # Uses st.cache_data to only rerun when the query changes or after 10 min.
@@ -14,6 +12,6 @@ def load_data(sheets_url):
 df = load_data(st.secrets["public_gsheets_url"])
 
 # Print results.
-
-data = df.get_all_records()  # Get a list of all records
-print(data)
+# Print results.
+for row in df.itertuples():
+    st.write(f"{row.name} has a :{row.pet}:")
